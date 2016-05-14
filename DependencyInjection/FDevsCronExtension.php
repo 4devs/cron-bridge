@@ -22,7 +22,7 @@ class FDevsCronExtension extends Extension
 
         $loader->load('services.xml');
         $exporter = $config['exporter'];
-        $exporter['path'] .= ':'.realpath($container->getParameter('kernel.root_dir').'/..');
+        $exporter['home'] = isset($exporter['home']) ? $exporter['home'] : realpath($container->getParameter('kernel.root_dir').'/..');
 
         $this->configureCron($container->getDefinition('f_devs_cron.cron'), $exporter);
         $container->setParameter($this->getAlias().'.key', $config['exporter']['key']);
@@ -46,7 +46,10 @@ class FDevsCronExtension extends Extension
         if (isset($exporter['mailto'])) {
             $cron->addMethodCall('addHeader', [Cron::HEADER_MAILTO, $exporter['mailto']]);
         }
-        $cron->addMethodCall('addHeader', [Cron::HEADER_PATH, $exporter['path']]);
+        $cron
+            ->addMethodCall('addHeader', [Cron::HEADER_PATH, $exporter['path']])
+            ->addMethodCall('addHeader', [Cron::HEADER_HOME, $exporter['home']])
+        ;
 
         return $cron;
     }
