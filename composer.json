@@ -1,0 +1,36 @@
+{
+    "name": "fdevs/cron-bridge",
+    "description": "Symfony 2 bridge which allows you to use config to configure cron to run your console commands.",
+    "keywords": [
+        "cron",
+        "crontab"
+    ],
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrey Samusev",
+            "email": "andrey_simfi@list.ru",
+            "homepage": "http://andrey.4devs.io"
+        },
+        {
+            "name": "4devs Community",
+            "homepage": "https://github.com/4devs/cron-bridge/contributors"
+        }
+    ],
+    "require": {
+        "fdevs/cron": "~0.1",
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "symfony/console": "~2.8|~3.0"
+    },
+    "suggest": {
+        "symfony/console": "use with symfony console"
+    },
+    "autoload": {
+        "psr-4": {
+            "FDevs\\Bridge\\Cron\\": ""
+        }
+    }
+}

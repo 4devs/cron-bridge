@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="f_devs_cron.cron.class">FDevs\Cron\Cron</parameter>
+        <parameter key="f_devs_cron.crontab_updater.class">FDevs\Cron\CrontabUpdater</parameter>
+        <parameter key="f_devs_cron.command.dump.class">FDevs\Bridge\Cron\Command\DumpCommand</parameter>
+        <parameter key="f_devs_cron.command.replace.class">FDevs\Bridge\Cron\Command\ReplaceCommand</parameter>
+        <parameter key="f_devs_cron.command.delete.class">FDevs\Bridge\Cron\Command\DeleteCommand</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="f_devs_cron.cron" class="%f_devs_cron.cron.class%"/>
+
+        <service id="f_devs_cron.crontab_updater" class="%f_devs_cron.crontab_updater.class%">
+            <argument type="string">%f_devs_cron.key%</argument>
+        </service>
+
+        <!--commands-->
+        <service id="f_devs_cron.command.dump" class="%f_devs_cron.command.dump.class%">
+            <argument>fdevs:cron:dump</argument>
+            <argument type="service" id="f_devs_cron.cron"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="f_devs_cron.command.replace" class="%f_devs_cron.command.replace.class%">
+            <argument>fdevs:cron:replace</argument>
+            <argument type="service" id="f_devs_cron.cron"/>
+            <argument type="service" id="f_devs_cron.crontab_updater"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="f_devs_cron.command.delete" class="%f_devs_cron.command.delete.class%">
+            <argument>fdevs:cron:delete</argument>
+            <argument type="service" id="f_devs_cron.crontab_updater"/>
+            <tag name="console.command"/>
+        </service>
+
+    </services>
+
+</container>
