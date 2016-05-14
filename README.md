@@ -45,6 +45,36 @@ f_devs_cron:
             command: 'your_best_command'
 ```
 
+#### default configuration
+
+```yml
+# Default configuration for extension with alias: "f_devs_cron"
+f_devs_cron:
+    exporter:
+        key:                  f_devs_cron # Example: generated
+        mailto:               ~ # Example: cron@example.com
+        path:                 '/usr/local/bin:/usr/bin:/bin' # Example: /usr/local/bin:/usr/bin:/bin
+        executor:             php # Example: php
+        console:              bin/console # Example: bin/console(symfony 3.0)
+        shell:                ~ # Example: /bin/sh
+    commands:
+
+        # Prototype
+        name:
+            command:              ~ # Required, Example: swiftmailer:spool:send
+            minute:               '*' # Example: */5 - Every 5 minutes
+            hour:                 '*' # Example: 8 - 5 minutes past 8am every day
+            day_of_week:          '*' # Example: 0 - 5 minutes past 8am every Sunday
+            day:                  '*' # Example: 1 -  5 minutes past 8am on first of each month
+            month:                '*' # Example: 1 - 5 minutes past 8am on first of of January
+            log_file:             ~ # Example: %kernel.logs_dir%/%kernel.environment%_cron.log
+            error_file:           ~ # Example: %kernel.logs_dir%/%kernel.environment%_error.log
+            params:               '' # Example: --color=red
+
+            # add if use custom executor
+            executor:             ~ # Example: /usr/bin/php
+```
+
 ###use console command
 
 ```bash
